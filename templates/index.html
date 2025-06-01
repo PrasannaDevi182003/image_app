@@ -1,68 +1,85 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image Editor</title>
+    <title>IMAGE_APP</title>
 </head>
 <body>
-    <h1>Image Editor</h1>
+    <h1>IMAGE_APP</h1>
 
+    <!-- Image Upload and Edit Form -->
     <form action="/edit" method="post" enctype="multipart/form-data">
-        <label>Select Image:</label>
+        <label>Select Image:</label><br>
         <input type="file" name="file"><br><br>
 
+        <!-- Brightness -->
         <label>Brightness:</label>
         <select name="brightness">
-            <option value="">None</option>
+            <option value="">--Select--</option>
             <option value="Increase">Increase</option>
             <option value="Decrease">Decrease</option>
         </select><br><br>
 
-        <label>Remove Noise:</label>
-        <input type="checkbox" name="noise" value="Remove Noise"><br><br>
+        <!-- Noise Removal -->
+        <label>Noise:</label>
+        <select name="noise">
+            <option value="">--Select--</option>
+            <option value="Remove Noise">Remove Noise</option>
+        </select><br><br>
 
-        <label>Width:</label>
-        <input type="text" name="width">
-        <label>Height:</label>
-        <input type="text" name="height"><br><br>
+        <!-- Resize -->
+        <label>Resize:</label><br>
+        Width: <input type="text" name="width" placeholder="Width">
+        Height: <input type="text" name="height" placeholder="Height"><br><br>
 
+        <!-- Rotate -->
         <label>Rotate (degrees):</label>
         <input type="text" name="rotate"><br><br>
 
+        <!-- Flip -->
         <label>Flip:</label>
         <select name="flip">
-            <option value="">None</option>
+            <option value="">--Select--</option>
             <option value="horizontal">Horizontal</option>
             <option value="vertical">Vertical</option>
         </select><br><br>
 
+        <!-- Filters -->
         <label>Filter:</label>
         <select name="filter">
-            <option value="">None</option>
+            <option value="">--Select--</option>
             <option value="bw">Black & White</option>
             <option value="sepia">Sepia</option>
             <option value="invert">Invert</option>
             <option value="sharpen">Sharpen</option>
-            <option value="contrast">Contrast</option>
+            <option value="contrast">Increase Contrast</option>
         </select><br><br>
 
+        <!-- Face Blur -->
         <label>Face Blur:</label>
-        <input type="checkbox" name="face_blur"><br><br>
+        <input type="checkbox" name="face_blur" value="on"><br><br>
 
-        <label>Crop (x, y, width, height):</label><br>
-        x: <input type="text" name="crop_x">
-        y: <input type="text" name="crop_y">
-        width: <input type="text" name="crop_w">
-        height: <input type="text" name="crop_h"><br><br>
+        <!-- Crop -->
+        <label>Crop:</label><br>
+        X: <input type="text" name="crop_x" placeholder="X">
+        Y: <input type="text" name="crop_y" placeholder="Y">
+        Width: <input type="text" name="crop_w" placeholder="Width">
+        Height: <input type="text" name="crop_h" placeholder="Height"><br><br>
 
-        <button type="submit">Apply Edits</button>
-        <button type="submit" name="reset" value="1">Reset to Original</button>
+        <!-- Reset -->
+        <label>Reset Image:</label>
+        <input type="checkbox" name="reset" value="on"><br><br>
+
+        <button type="submit">Apply Changes</button>
     </form>
 
     {% if edited %}
-        <h2>Edited Image:</h2>
-        <img src="{{ edited_image }}" alt="Edited Image" width="300"><br>
-        <a href="/download">Download Edited Image</a>
+        <h2>Original Image</h2>
+        <img src="/static/original.jpg" alt="Original Image" width="300"><br><br>
+
+        <h2>Edited Image</h2>
+        <img src="{{ edited_image }}" alt="Edited Image" width="300"><br><br>
+
+        <a href="/download"><button>Download Edited Image</button></a>
     {% endif %}
 </body>
 </html>
