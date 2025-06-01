@@ -1,0 +1,68 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Editor</title>
+</head>
+<body>
+    <h1>Image Editor</h1>
+
+    <form action="/edit" method="post" enctype="multipart/form-data">
+        <label>Select Image:</label>
+        <input type="file" name="file"><br><br>
+
+        <label>Brightness:</label>
+        <select name="brightness">
+            <option value="">None</option>
+            <option value="Increase">Increase</option>
+            <option value="Decrease">Decrease</option>
+        </select><br><br>
+
+        <label>Remove Noise:</label>
+        <input type="checkbox" name="noise" value="Remove Noise"><br><br>
+
+        <label>Width:</label>
+        <input type="text" name="width">
+        <label>Height:</label>
+        <input type="text" name="height"><br><br>
+
+        <label>Rotate (degrees):</label>
+        <input type="text" name="rotate"><br><br>
+
+        <label>Flip:</label>
+        <select name="flip">
+            <option value="">None</option>
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
+        </select><br><br>
+
+        <label>Filter:</label>
+        <select name="filter">
+            <option value="">None</option>
+            <option value="bw">Black & White</option>
+            <option value="sepia">Sepia</option>
+            <option value="invert">Invert</option>
+            <option value="sharpen">Sharpen</option>
+            <option value="contrast">Contrast</option>
+        </select><br><br>
+
+        <label>Face Blur:</label>
+        <input type="checkbox" name="face_blur"><br><br>
+
+        <label>Crop (x, y, width, height):</label><br>
+        x: <input type="text" name="crop_x">
+        y: <input type="text" name="crop_y">
+        width: <input type="text" name="crop_w">
+        height: <input type="text" name="crop_h"><br><br>
+
+        <button type="submit">Apply Edits</button>
+        <button type="submit" name="reset" value="1">Reset to Original</button>
+    </form>
+
+    {% if edited %}
+        <h2>Edited Image:</h2>
+        <img src="{{ edited_image }}" alt="Edited Image" width="300"><br>
+        <a href="/download">Download Edited Image</a>
+    {% endif %}
+</body>
+</html>
