@@ -7,6 +7,7 @@ from PIL import Image, ImageFilter, ImageEnhance
 import shutil
 import cv2
 import numpy as np
+import os
 
 app = FastAPI()
 
@@ -46,8 +47,21 @@ async def edit_image(
         shutil.copy("static/original.jpg", "static/edited_image.jpg")
 
     # Reset to original
+    
     if reset:
+     if os.path.exists("static/original.jpg"):
         shutil.copy("static/original.jpg", "static/edited_image.jpg")
+        return templates.TemplateResponse("index.html", {
+            "request": request,
+            "edited": True,
+            "edited_image": "/static/edited_image.jpg"
+        })
+    else:
+        return templates.TemplateResponse("index.html", {
+            "request": request,
+            "edited": False,
+            "error": "No original image to reset to. Please upload an image first."
+        })
 
     img = Image.open("static/edited_image.jpg")
 
