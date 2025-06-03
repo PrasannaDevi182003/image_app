@@ -1,90 +1,169 @@
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>IMAGE_APP</title>
+    <title>IMAGE_APP - Image Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            margin: 5px 0 15px;
+            padding: 8px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            margin: 20px auto;
+            border-radius: 12px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .two-column {
+            display: flex;
+            gap: 10px;
+        }
+
+        .two-column input {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>IMAGE_APP</h1>
-
-    <!-- Image Upload and Edit Form -->
+    <h1>🖼️ IMAGE_APP</h1>
     <form action="/edit" method="post" enctype="multipart/form-data">
-        <label>Select Image:</label><br>
-        <input type="file" name="file"><br><br>
+        <div class="section">
+            <label>Upload an image:</label>
+            <input type="file" name="file">
+        </div>
 
-        <!-- Brightness -->
-        <label>Brightness:</label>
-        <select name="brightness">
-            <option value="">--Select--</option>
-            <option value="Increase">Increase</option>
-            <option value="Decrease">Decrease</option>
-        </select><br><br>
+        <div class="section">
+            <label>Brightness:</label>
+            <select name="brightness">
+                <option value="">-- Select --</option>
+                <option value="Increase">Increase</option>
+                <option value="Decrease">Decrease</option>
+            </select>
+        </div>
 
-        <!-- Noise Removal -->
-        <label>Noise:</label>
-        <select name="noise">
-            <option value="">--Select--</option>
-            <option value="Remove Noise">Remove Noise</option>
-            <option value="face_blur">Face Blur</option>
-        </select><br><br>
+        <div class="section">
+            <label>Noise Removal:</label>
+            <select name="noise">
+                <option value="">-- Select --</option>
+                <option value="Remove Noise">Remove Noise</option>
+            </select>
+        </div>
 
-        <!-- Resize -->
-        <label>Resize:</label><br>
-        Width: <input type="text" name="width" placeholder="Width">
-        Height: <input type="text" name="height" placeholder="Height"><br><br>
+        <div class="section">
+            <label>Resize (Width x Height):</label>
+            <div class="two-column">
+                <input type="number" name="width" placeholder="Width">
+                <input type="number" name="height" placeholder="Height">
+            </div>
+        </div>
 
-        <!-- Rotate -->
-        <label>Rotate (degrees):</label>
-        <input type="text" name="rotate"><br><br>
+        <div class="section">
+            <label>Rotate (degrees):</label>
+            <input type="number" name="rotate" placeholder="0-360">
+        </div>
 
-        <!-- Flip -->
-        <label>Flip:</label>
-        <select name="flip">
-            <option value="">--Select--</option>
-            <option value="horizontal">Horizontal</option>
-            <option value="vertical">Vertical</option>
-        </select><br><br>
+        <div class="section">
+            <label>Flip:</label>
+            <select name="flip">
+                <option value="">-- Select --</option>
+                <option value="horizontal">Horizontal</option>
+                <option value="vertical">Vertical</option>
+            </select>
+        </div>
 
-        <!-- Filters -->
-        <label>Filter:</label>
-        <select name="filter">
-            <option value="">--Select--</option>
-            <option value="bw">Black & White</option>
-            <option value="sepia">Sepia</option>
-            <option value="invert">Invert</option>
-            <option value="sharpen">Sharpen</option>
-            <option value="contrast">Increase Contrast</option>
-        </select><br><br>
+        <div class="section">
+            <label>Filters:</label>
+            <select name="filter">
+                <option value="">-- Select --</option>
+                <option value="bw">Black & White</option>
+                <option value="sepia">Sepia</option>
+                <option value="invert">Invert</option>
+                <option value="sharpen">Sharpen</option>
+                <option value="contrast">Increase Contrast</option>
+            </select>
+        </div>
 
-        <!-- Face Blur -->
-        <label>Face Blur:</label>
-        <input type="checkbox" name="face_blur" value="on"><br><br>
+        <div class="section">
+            <label>Face Blur:</label>
+            <input type="checkbox" name="face_blur">
+        </div>
 
-        <!-- Crop -->
-        <label>Crop:</label><br>
-        X: <input type="text" name="crop_x" placeholder="X">
-        Y: <input type="text" name="crop_y" placeholder="Y">
-        Width: <input type="text" name="crop_w" placeholder="Width">
-        Height: <input type="text" name="crop_h" placeholder="Height"><br><br>
+        <div class="section">
+            <label>Crop (x, y, width, height):</label>
+            <div class="two-column">
+                <input type="number" name="crop_x" placeholder="X">
+                <input type="number" name="crop_y" placeholder="Y">
+            </div>
+            <div class="two-column">
+                <input type="number" name="crop_w" placeholder="Width">
+                <input type="number" name="crop_h" placeholder="Height">
+            </div>
+        </div>
 
-        <!-- Reset -->
-        <label>Reset Image:</label>
-        <input type="checkbox" name="reset" value="on"><br><br>
+        <div class="section">
+            <label>Reset Image:</label>
+            <input type="checkbox" name="reset">
+        </div>
 
-        <button type="submit">Apply Changes</button>
-        <button type="submit" name="action" value="contrast">Increase Contrast</button>
-        <button type="submit" name="action" value="sharpen">Sharpen</button>
-        <button type="submit" name="action" value="invert">Invert</button>
-
+        <button type="submit">Apply</button>
     </form>
 
     {% if edited %}
-        <h2>Original Image</h2>
-        <img src="/static/original.jpg" alt="Original Image" width="300"><br><br>
-
-        <h2>Edited Image</h2>
-        <img src="{{ edited_image }}" alt="Edited Image" width="300"><br><br>
-
-        <a href="/download"><button>Download Edited Image</button></a>
+        <h2 style="text-align:center;">Edited Image:</h2>
+        <img src="{{ edited_image }}" alt="Edited Image">
+        <div style="text-align:center;">
+            <a href="/download">
+                <button>Download Edited Image</button>
+            </a>
+        </div>
     {% endif %}
 </body>
 </html>
