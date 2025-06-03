@@ -1,111 +1,90 @@
-""<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Image Editor</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .controls div {
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
+    <title>IMAGE_APP</title>
 </head>
 <body>
-    <h1>IMAGE_APP - Edit Your Image</h1>
+    <h1>IMAGE_APP</h1>
+
+    <!-- Image Upload and Edit Form -->
     <form action="/edit" method="post" enctype="multipart/form-data">
-        <div class="controls">
-            <div>
-                <label>Upload Image:</label>
-                <input type="file" name="file">
-            </div>
+        <label>Select Image:</label><br>
+        <input type="file" name="file"><br><br>
 
-            <div>
-                <label>Brightness:</label>
-                <select name="brightness">
-                    <option value="">None</option>
-                    <option value="Increase">Increase</option>
-                    <option value="Decrease">Decrease</option>
-                </select>
-            </div>
+        <!-- Brightness -->
+        <label>Brightness:</label>
+        <select name="brightness">
+            <option value="">--Select--</option>
+            <option value="Increase">Increase</option>
+            <option value="Decrease">Decrease</option>
+        </select><br><br>
 
-            <div>
-                <label>Noise Removal:</label>
-                <select name="noise">
-                    <option value="">None</option>
-                    <option value="Remove Noise">Remove</option>
-                </select>
-            </div>
+        <!-- Noise Removal -->
+        <label>Noise:</label>
+        <select name="noise">
+            <option value="">--Select--</option>
+            <option value="Remove Noise">Remove Noise</option>
+            <option value="face_blur">Face Blur</option>
+        </select><br><br>
 
-            <div>
-                <label>Resize (Width x Height):</label>
-                <input type="text" name="width" placeholder="Width">
-                <input type="text" name="height" placeholder="Height">
-            </div>
+        <!-- Resize -->
+        <label>Resize:</label><br>
+        Width: <input type="text" name="width" placeholder="Width">
+        Height: <input type="text" name="height" placeholder="Height"><br><br>
 
-            <div>
-                <label>Rotate (Degrees):</label>
-                <input type="text" name="rotate" placeholder="Rotate">
-            </div>
+        <!-- Rotate -->
+        <label>Rotate (degrees):</label>
+        <input type="text" name="rotate"><br><br>
 
-            <div>
-                <label>Flip:</label>
-                <select name="flip">
-                    <option value="">None</option>
-                    <option value="horizontal">Horizontal</option>
-                    <option value="vertical">Vertical</option>
-                </select>
-            </div>
+        <!-- Flip -->
+        <label>Flip:</label>
+        <select name="flip">
+            <option value="">--Select--</option>
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
+        </select><br><br>
 
-            <div>
-                <label>Filters:</label>
-                <select name="filter">
-                    <option value="">None</option>
-                    <option value="bw">Black & White</option>
-                    <option value="sepia">Sepia</option>
-                    <option value="invert">Invert</option>
-                    <option value="sharpen">Sharpen</option>
-                    <option value="contrast">Contrast</option>
-                </select>
-            </div>
+        <!-- Filters -->
+        <label>Filter:</label>
+        <select name="filter">
+            <option value="">--Select--</option>
+            <option value="bw">Black & White</option>
+            <option value="sepia">Sepia</option>
+            <option value="invert">Invert</option>
+            <option value="sharpen">Sharpen</option>
+            <option value="contrast">Increase Contrast</option>
+        </select><br><br>
 
-            <div>
-                <label>Face Blur:</label>
-                <input type="checkbox" name="face_blur">
-            </div>
+        <!-- Face Blur -->
+        <label>Face Blur:</label>
+        <input type="checkbox" name="face_blur" value="on"><br><br>
 
-            <div>
-                <label>Crop (X, Y, W, H):</label>
-                <input type="text" name="crop_x" placeholder="X">
-                <input type="text" name="crop_y" placeholder="Y">
-                <input type="text" name="crop_w" placeholder="W">
-                <input type="text" name="crop_h" placeholder="H">
-            </div>
+        <!-- Crop -->
+        <label>Crop:</label><br>
+        X: <input type="text" name="crop_x" placeholder="X">
+        Y: <input type="text" name="crop_y" placeholder="Y">
+        Width: <input type="text" name="crop_w" placeholder="Width">
+        Height: <input type="text" name="crop_h" placeholder="Height"><br><br>
 
-            <div>
-                <label>Undo/Reset:</label>
-                <input type="checkbox" name="reset">
-            </div>
-        </div>
-        <br>
+        <!-- Reset -->
+        <label>Reset Image:</label>
+        <input type="checkbox" name="reset" value="on"><br><br>
+
         <button type="submit">Apply Changes</button>
+        <button type="submit" name="action" value="contrast">Increase Contrast</button>
+        <button type="submit" name="action" value="sharpen">Sharpen</button>
+        <button type="submit" name="action" value="invert">Invert</button>
+
     </form>
 
-    {% if edited_image %}
-        <h2>Edited Image:</h2>
-        <img src="{{ edited_image }}" alt="Edited Image" style="max-width: 600px;">
-        <br><br>
+    {% if edited %}
+        <h2>Original Image</h2>
+        <img src="/static/original.jpg" alt="Original Image" width="300"><br><br>
+
+        <h2>Edited Image</h2>
+        <img src="{{ edited_image }}" alt="Edited Image" width="300"><br><br>
+
         <a href="/download"><button>Download Edited Image</button></a>
     {% endif %}
 </body>
-</html>""
+</html>
