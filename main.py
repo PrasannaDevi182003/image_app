@@ -81,18 +81,6 @@ async def edit_image(
     elif flip == "vertical":
         img = img.transpose(Image.FLIP_TOP_BOTTOM)
 
-def blur_faces(image_np):
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-    gray = cv2.cvtColor(image_np, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-
-    for (x, y, w, h) in faces:
-        face = image_np[y:y+h, x:x+w]
-        face = cv2.GaussianBlur(face, (99, 99), 30)
-        image_np[y:y+h, x:x+w] = face
-
-    return image_np
-
     # Filters
     if filter == "bw":
         img = img.convert("L").convert("RGB")
